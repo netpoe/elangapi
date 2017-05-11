@@ -1,0 +1,19 @@
+{
+    "name": "netpoe/elang",
+    "authors": [
+        {
+            "name": "Gus",
+            "email": "yo@soygus.com"
+        }
+    ],
+    "autoload": {
+        "classmap": ["./src"],
+        "psr-4": {
+            "Elang\\": "src/",
+            "Elang\\Library": "lib/"
+        }
+    },
+    "require": {
+        "wa72/htmlpagedom": "^1.3"
+    }
+}

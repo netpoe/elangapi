@@ -7,10 +7,10 @@
         }
     ],
     "autoload": {
-        "classmap": ["./src"],
+        "classmap": ["./src", "./lib"],
         "psr-4": {
             "Elang\\": "src/",
-            "Elang\\Library": "lib/"
+            "Elang\\Library\\": "lib/"
         }
     },
     "require": {

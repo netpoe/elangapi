@@ -23,17 +23,17 @@ class VerbsScraper
     public function saveVerbsToLib()
     {
         return $this
-                ->scrapeVerbs()
-                ->getVerbs()
+                ->scrape()
+                ->get()
                 ->save();
     }
 
-    public function getVerbs()
+    public function get()
     {
 
     }
 
-    public function scrapeVerbs()
+    public function scrape()
     {
         foreach ($letters as $letter) {
             $this->getHTML()
@@ -55,6 +55,6 @@ class VerbsScraper
 
     public function save()
     {
-        
+
     }
 }

@@ -2,16 +2,15 @@
 
 namespace Elang\Library\Scraper\es_MX;
 
+use Elang\Library\Scraper\AbstractBaseScraper;
 use Wa72\HtmlPageDom\HtmlPageCrawler;
 use Wa72\HtmlPageDom\HtmlPage;
 
-class VerbsScraper
+class VerbsScraper extends AbstractBaseScraper
 {
     public $hostname = 'https://www.vocabulix.com';
 
     public $path = 'conjugacion2';
-
-    public $directory = '';
 
     /* 
      * This is how the URI paths are defined in the website we are scraping
@@ -21,15 +20,7 @@ class VerbsScraper
 
     public $letters = [];
 
-    public $currentLetter = '';
-
     public $lang = 'es_MX';
-
-    public $response = '';
-
-    public $body = '';
-
-    public $verbs = [];
 
     const DELAY_CURL_TIME = 2000000;
 
@@ -39,36 +30,31 @@ class VerbsScraper
         $this->directory = dirname(__DIR__, 3) . "/lib/lang/{$this->lang}/verbs";
     }
 
-    public function saveVerbsToLib()
-    {
-        return $this->scrape();
-    }
-
     public function removeDuplicates()
     {
         foreach ($this->letters as $letter) {
-            $this->setCurrentLetter($letter)
-                ->normalizeCurrentLetter()
-                ->getFile();
+            $this->index($letter)
+                ->normalize()
+                ->onFile()
+                ->clean()
+                ->save();
+                exit;
         }
 
         return $this;
-    }
-
-    public function getFile()
-    {
-        $this->file = "{$this->directory}/{$this->currentLetter}.json";
     }
 
     public function scrape()
     {
         foreach ($this->letters as $letter) {
             // usleep(self::DELAY_CURL_TIME);
-            $this->setCurrentLetter($letter)
+            $this->index($letter)
                 ->makeURL()
                 ->getBody()
                 ->getVerbs()
-                ->normalizeCurrentLetter()
+                ->normalize()
+                ->onFile()
+                ->combineJson()
                 ->save()
                 ->reset();
         }
@@ -78,41 +64,21 @@ class VerbsScraper
 
     public function reset()
     {
-        $this->verbs = [];
+        $this->data = [];
 
         return $this;
     }
 
-    public function setCurrentLetter(String $letter)
+    public function index(String $letter)
     {
-        $this->currentLetter = $letter;
+        $this->index = $letter;
 
         return $this;
     }
 
     public function makeURL()
     {
-        $this->url = "{$this->hostname}/{$this->path}/{$this->currentLetter}_spanish.html";
-
-        return $this;
-    }
-
-    public function enter()
-    {
-        $curl = curl_init($this->url);
-        curl_setopt_array($curl, [
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_HEADER => 0,
-            ]);
-        $result = curl_exec($curl);
-
-        if (!$result) {
-            print_r("ERROR: ${curl_error($curl)}"); exit;
-        }
-
-        $this->response = $result;
-
-        curl_close($curl);
+        $this->url = "{$this->hostname}/{$this->path}/{$this->index}_spanish.html";
 
         return $this;
     }
@@ -129,39 +95,19 @@ class VerbsScraper
     {
         $verbs = $this->body->filter('.indexWrapper .indexColumn a');
         $verbs->each(function($verb){
-            array_push($this->verbs, $verb->text());
+            array_push($this->data, $verb->text());
         });
 
         return $this;
     }
 
-    public function normalizeCurrentLetter()
+    public function normalize()
     {
-        if (strlen($this->currentLetter) > 1) {
-            $extraString = substr($this->currentLetter, 1);
-            $this->currentLetter = str_replace($extraString, '', $this->currentLetter);
+        if (strlen($this->index) > 1) {
+            $extraString = substr($this->index, 1);
+            $this->index = str_replace($extraString, '', $this->index);
         }
 
-        return $this;
-    }
-
-    public function save()
-    {
-        $fileLocation = "{$this->directory}/{$this->currentLetter}.json";
-        
-        if (!file_exists($fileLocation)) {
-            $file = fopen($fileLocation, 'w');
-            $content = '[]';
-            fwrite($file, $content);
-            fclose($file);
-        }
-
-        $data = file_get_contents($fileLocation);
-        $tempArray = json_decode($data, true);
-        $content = array_merge($tempArray, $this->verbs);
-        $jsonData = json_encode($content);
-        file_put_contents($fileLocation, $jsonData);
-        
         return $this;
     }
 }

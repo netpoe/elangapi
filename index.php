@@ -5,4 +5,4 @@ if (file_exists('vendor/autoload.php')) {
 }
 
 $scraper = new Elang\Library\Scraper\es_MX\VerbsScraper;
-$scraper->saveVerbsToLib();
+$scraper->removeDuplicates();

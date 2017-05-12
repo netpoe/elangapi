@@ -20,25 +20,23 @@ class VerbsScraper extends AbstractBaseScraper
 
     public $letters = [];
 
-    public $lang = 'es_MX';
-
     const DELAY_CURL_TIME = 2000000;
 
-    public function __construct()
+    public function __construct(String $langCode)
     {
+        $this->lang = $langCode;
         $this->letters = explode('_', $this->lettersPathString);
         $this->directory = dirname(__DIR__, 3) . "/lib/lang/{$this->lang}/verbs";
     }
 
     public function removeDuplicates()
     {
-        foreach ($this->letters as $letter) {
-            $this->index($letter)
+        foreach ($this->letters as $index) {
+            $this->index($index)
                 ->normalize()
                 ->onFile()
                 ->clean()
                 ->save();
-                exit;
         }
 
         return $this;
@@ -46,9 +44,8 @@ class VerbsScraper extends AbstractBaseScraper
 
     public function scrape()
     {
-        foreach ($this->letters as $letter) {
-            // usleep(self::DELAY_CURL_TIME);
-            $this->index($letter)
+        foreach ($this->letters as $index) {
+            $this->index($index)
                 ->makeURL()
                 ->getBody()
                 ->getVerbs()
@@ -69,24 +66,9 @@ class VerbsScraper extends AbstractBaseScraper
         return $this;
     }
 
-    public function index(String $letter)
-    {
-        $this->index = $letter;
-
-        return $this;
-    }
-
     public function makeURL()
     {
         $this->url = "{$this->hostname}/{$this->path}/{$this->index}_spanish.html";
-
-        return $this;
-    }
-
-    public function getBody()
-    {
-        $page = new HtmlPage(file_get_contents($this->url));
-        $this->body = $page->filter('body');
 
         return $this;
     }

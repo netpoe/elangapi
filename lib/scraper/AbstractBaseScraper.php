@@ -18,6 +18,10 @@ abstract class AbstractBaseScraper {
 
     public $index = '';
 
+    public $data = [];
+
+    public $lang = '';
+
     abstract public function scrape();
 
     public function createJsonFile(String $content)
@@ -70,12 +74,27 @@ abstract class AbstractBaseScraper {
         return $this;
     }
 
+    public function index($index)
+    {
+        $this->index = $index;
+
+        return $this;
+    }
+
     public function save()
     {
         file_put_contents($this->file, $this->data);
 
         return $this;
-    } 
+    }
+
+    public function getBody()
+    {
+        $page = new HtmlPage(file_get_contents($this->url));
+        $this->body = $page->filter('body');
+
+        return $this;
+    }
 
     public function getHTMLPage()
     {

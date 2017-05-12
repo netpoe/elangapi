@@ -20,8 +20,6 @@ abstract class AbstractBaseScraper {
 
     public $data = [];
 
-    public $lang = '';
-
     abstract public function scrape();
 
     public function createJsonFile(String $content)

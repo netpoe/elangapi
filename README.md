@@ -10,9 +10,10 @@ In the future, ELang should be able to parse content and:
 - Fix grammar mistakes
 - Fix typos
 - Get the context of what's written
-- Answer questions like: who, when, where, what
+- Answer questions like: who, when, where, what, how much, __why__
 - Get similarities between different blocks of content
 - Be able to generate human-like conclusions from the parsed content such as: _Ben is trying to fix his code and he is requesting Elaine's help_ (in all languages)
+- Be able to generate human-like opinions from the parsed content such as: _I don't think you should go to that trip, it's too dangerous considering the current situation in that country_ (in all languages)
 
 # Roadmap
 

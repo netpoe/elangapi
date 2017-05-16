@@ -15,7 +15,7 @@ In the future, ELang should be able to parse content and:
 - Be able to generate human-like conclusions from the parsed content such as: _Ben is trying to fix his code and he is requesting Elaine's help_ (in all languages)
 - Be able to generate human-like opinions from the parsed content such as: _I don't think you should go to that trip, it's too dangerous considering the current situation in that country_ (in all languages)
 
-# Roadmap
+## Roadmap
 
 It would be great to have a robust API where the endpoints work something like this:
 
@@ -34,3 +34,12 @@ GET //elang.something/{language_code}/content?get=sentences
 
 GET //elang.something/{language_code}/content?who=1&when=1
 ```
+
+## Resources
+
+### es_MX
+
+- [Partes del diccionario](https://www.unprofesor.com/lengua-espanola/el-diccionario-y-sus-partes-264.html)
+- [neo4j PHP NeoEloquent](https://github.com/Vinelab/NeoEloquent)
+- [5000 most common spanish words paginated](https://www.memrise.com/course/203799/5000-most-frequent-spanish-words/1/)
+- [Wordreference definitions used like `/definicion/{word}`](http://www.wordreference.com/definicion/entender)

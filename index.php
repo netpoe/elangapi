@@ -4,20 +4,16 @@ if (file_exists('vendor/autoload.php')) {
     include 'vendor/autoload.php';
 }
 
-use Vinelab\NeoEloquent\Connection;
+$app = new Elang\Application;
+$app->run();
 
-$connections = require(__DIR__ . '/config/database.php');
-$neo4j = $connections['connections']['neo4j'];
-$connection = new Connection($neo4j);
+$lang = 'es_MX';
+$scraperMapKey = 'words';
+$scraper = $app->getScraper($lang, $scraperMapKey);
 
-try {
-    $connection->createConnection();
-} catch (\Exception $e) {
-    error_log($e->getMessage());
-    die();
-}
+print_r($scraper); exit;
 
-// $scraper = new Elang\Library\Scraper\es_MX\VerbsScraper('es_MX');
+// $scraper = new Elang\Scraper\es_MX\VerbsScraper('es_MX');
 // $scraper
 //     ->scrape()
 //     ->removeDuplicates();

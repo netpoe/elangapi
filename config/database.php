@@ -6,7 +6,7 @@ return [
             'host'   => 'localhost',
             'port'   => '7687',
             'username' => null,
-            'password' => null
+            'password' => null,
         ]
     ]
 ];

@@ -1,8 +1,8 @@
 <?php 
 
-namespace Elang\Library\Scraper\es_MX;
+namespace Elang\Scraper\es_MX;
 
-use Elang\Library\Scraper\AbstractBaseScraper;
+use Elang\Scraper\AbstractBaseScraper;
 use Wa72\HtmlPageDom\HtmlPageCrawler;
 use Wa72\HtmlPageDom\HtmlPage;
 

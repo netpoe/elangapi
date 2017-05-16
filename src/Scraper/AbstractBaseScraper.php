@@ -1,6 +1,6 @@
 <?php 
 
-namespace Elang\Library\Scraper;
+namespace Elang\Scraper;
 
 abstract class AbstractBaseScraper {
 

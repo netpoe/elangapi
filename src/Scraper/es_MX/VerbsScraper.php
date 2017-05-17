@@ -12,6 +12,8 @@ class VerbsScraper extends AbstractBaseScraper
 
     public $path = 'conjugacion2';
 
+    public $namespace = 'verbs';
+
     /* 
      * This is how the URI paths are defined in the website we are scraping
      * 
@@ -24,9 +26,12 @@ class VerbsScraper extends AbstractBaseScraper
 
     public function __construct(String $langCode)
     {
-        $this->lang = $langCode;
+        $this->setLang($langCode);
+
+        $directory = dirname(__DIR__, 3) . "/lib/lang/{$this->lang}/{$this->namespace}";
+        $this->setDirectory($directory);
+
         $this->letters = explode('_', $this->lettersPathString);
-        $this->directory = dirname(__DIR__, 3) . "/lib/lang/{$this->lang}/verbs";
     }
 
     public function removeDuplicates()

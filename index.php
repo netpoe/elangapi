@@ -11,7 +11,7 @@ $lang = 'es_MX';
 $scraperMapKey = 'words';
 $scraper = $app->getScraper($lang, $scraperMapKey);
 
-print_r($scraper); exit;
+$scraper->createWord();
 
 // $scraper = new Elang\Scraper\es_MX\VerbsScraper('es_MX');
 // $scraper

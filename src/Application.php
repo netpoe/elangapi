@@ -20,11 +20,9 @@ class Application
         $databaseConfig = dirname(__DIR__, 1) . '/config/database.php';
         $connections = require($databaseConfig);
         $neo4j = $connections['connections']['neo4j'];
-        $connection = new Connection($neo4j);
 
         try {
-            $connection->createConnection();
-            $this->connection = $connection->getClient();
+            $this->connection = new Connection($neo4j);
         } catch (\Exception $e) {
             error_log($e->getMessage());
             die();
@@ -43,9 +41,6 @@ class Application
         $scraper = ucwords($scraperMapKey) . 'Scraper';
         $className = "Elang\Scraper\\{$lang}\\{$scraper}";
 
-        return new $className($lang);
+        return new $className($this, $lang);
     }
 }
-
-
-

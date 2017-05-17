@@ -2,6 +2,8 @@
 
 namespace Elang\Scraper;
 
+use Elang\Application;
+
 abstract class AbstractBaseScraper {
 
     public $hostname = '';
@@ -9,6 +11,8 @@ abstract class AbstractBaseScraper {
     public $path = '';
 
     public $directory = '';
+
+    public $namespace = '';
 
     public $lang = '';
 
@@ -20,7 +24,19 @@ abstract class AbstractBaseScraper {
 
     public $data = [];
 
+    public $app;
+
     abstract public function scrape();
+
+    public function __construct(Application $app, String $langCode)
+    {
+        $this->app = $app;
+
+        $this->setLang($langCode);
+
+        $directory = dirname(__DIR__, 3) . "/lib/lang/{$this->lang}/{$this->namespace}";
+        $this->setDirectory($directory);
+    }
 
     public function createJsonFile(String $content)
     {
@@ -110,6 +126,27 @@ abstract class AbstractBaseScraper {
         $this->response = $result;
 
         curl_close($curl);
+
+        return $this;
+    }
+
+    public function setLang(String $lang)
+    {
+        $this->lang = $lang;
+
+        return $this;
+    }
+
+    public function setDirectory(String $directory)
+    {
+        $this->directory = $directory;
+
+        return $this;
+    }
+
+    public function setNamespace(String $namespace)
+    {
+        $this->namespace = $namespace;
 
         return $this;
     }

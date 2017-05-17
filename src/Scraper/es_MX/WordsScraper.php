@@ -12,6 +12,8 @@ class WordsScraper extends AbstractBaseScraper
 
     public $path = 'conjugacion2';
 
+    public $namespace = 'words';
+
     /* 
      * This is how the URI paths are defined in the website we are scraping
      * 
@@ -22,11 +24,16 @@ class WordsScraper extends AbstractBaseScraper
 
     const DELAY_CURL_TIME = 2000000;
 
-    public function __construct(String $langCode)
+    public function createWord()
     {
-        $this->lang = $langCode;
-        $this->letters = explode('_', $this->lettersPathString);
-        $this->directory = dirname(__DIR__, 3) . "/lib/lang/{$this->lang}/verbs";
+        $connection = $this->app->getConnection();
+
+        $create = 'CREATE (w:Word {word: {word}})';
+        $cypher = $connection->getCypherQuery($create, [
+            ['word' => 'gato'],
+        ]);
+
+        $results = $cypher->getResultSet();
     }
 
     public function removeDuplicates()

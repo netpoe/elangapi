@@ -2,7 +2,7 @@
 
 namespace Elang;
 
-use Vinelab\NeoEloquent\Connection;
+use GraphAware\Neo4j\Client\ClientBuilder;
 
 class Application
 {
@@ -10,8 +10,6 @@ class Application
 
     public function run()
     {
-        $this->connect();
-
         return $this;
     }
 
@@ -19,10 +17,14 @@ class Application
     {
         $databaseConfig = dirname(__DIR__, 1) . '/config/database.php';
         $connections = require($databaseConfig);
+        $type = $connections['connections']['default'];
         $neo4j = $connections['connections']['neo4j'];
+        $connection = "$type://${neo4j['username']}:${neo4j['password']}@${neo4j['host']}:${neo4j['port']}";
 
         try {
-            $this->connection = new Connection($neo4j);
+            $this->connection = ClientBuilder::create()
+                                            ->addConnection($type, $connection)
+                                            ->build();
         } catch (\Exception $e) {
             error_log($e->getMessage());
             die();
@@ -41,6 +43,6 @@ class Application
         $scraper = ucwords($scraperMapKey) . 'Scraper';
         $className = "Elang\Scraper\\{$lang}\\{$scraper}";
 
-        return new $className($this, $lang);
+        return new $className($lang);
     }
 }

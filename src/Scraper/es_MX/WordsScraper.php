@@ -3,8 +3,7 @@
 namespace Elang\Scraper\es_MX;
 
 use Elang\Scraper\AbstractBaseScraper;
-use Wa72\HtmlPageDom\HtmlPageCrawler;
-use Wa72\HtmlPageDom\HtmlPage;
+use Elang\Model\Word;
 
 class WordsScraper extends AbstractBaseScraper
 {
@@ -24,27 +23,9 @@ class WordsScraper extends AbstractBaseScraper
 
     const DELAY_CURL_TIME = 2000000;
 
-    public function createWord()
+    public function createWord(String $word)
     {
-        $connection = $this->app->getConnection();
-
-        $create = 'CREATE (w:Word {word: {word}})';
-        $cypher = $connection->getCypherQuery($create, [
-            ['word' => 'gato'],
-        ]);
-
-        $results = $cypher->getResultSet();
-    }
-
-    public function removeDuplicates()
-    {
-        foreach ($this->letters as $index) {
-            $this->index($index)
-                ->normalize()
-                ->onFile()
-                ->clean()
-                ->save();
-        }
+        $word = Word::create(['word' => $word]);
 
         return $this;
     }
@@ -61,40 +42,6 @@ class WordsScraper extends AbstractBaseScraper
                 ->combineJson()
                 ->save()
                 ->reset();
-        }
-
-        return $this;
-    }
-
-    public function reset()
-    {
-        $this->data = [];
-
-        return $this;
-    }
-
-    public function makeURL()
-    {
-        $this->url = "{$this->hostname}/{$this->path}/{$this->index}_spanish.html";
-
-        return $this;
-    }
-
-    public function getVerbs()
-    {
-        $verbs = $this->body->filter('.indexWrapper .indexColumn a');
-        $verbs->each(function($verb){
-            array_push($this->data, $verb->text());
-        });
-
-        return $this;
-    }
-
-    public function normalize()
-    {
-        if (strlen($this->index) > 1) {
-            $extraString = substr($this->index, 1);
-            $this->index = str_replace($extraString, '', $this->index);
         }
 
         return $this;

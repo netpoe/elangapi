@@ -4,7 +4,7 @@ namespace Elang\Scraper;
 
 use Elang\Application;
 
-abstract class AbstractBaseScraper {
+abstract class AbstractBaseScraper extends Application {
 
     public $hostname = '';
 
@@ -24,14 +24,10 @@ abstract class AbstractBaseScraper {
 
     public $data = [];
 
-    public $app;
-
     abstract public function scrape();
 
-    public function __construct(Application $app, String $langCode)
+    public function __construct(String $langCode)
     {
-        $this->app = $app;
-
         $this->setLang($langCode);
 
         $directory = dirname(__DIR__, 3) . "/lib/lang/{$this->lang}/{$this->namespace}";

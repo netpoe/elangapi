@@ -40,6 +40,8 @@ GET //elang.something/{language_code}/content?who=1&when=1
 ### es_MX
 
 - [Partes del diccionario](https://www.unprofesor.com/lengua-espanola/el-diccionario-y-sus-partes-264.html)
-- [neo4j PHP NeoEloquent](https://github.com/Vinelab/NeoEloquent)
+- [Graphaware neo4j PHP Client](https://github.com/graphaware/neo4j-php-client)
 - [5000 most common spanish words paginated](https://www.memrise.com/course/203799/5000-most-frequent-spanish-words/1/)
 - [Wordreference definitions used like `/definicion/{word}`](http://www.wordreference.com/definicion/entender)
+- [Abreviaturas y signos usados](http://www.rae.es/sites/default/files/Abreviaturas_y_signos_empleados.pdf)
+- [Abreviaturas de las categorías gramaticales](http://www.culturaderioja.org/index.php/notas-para-el-uso-del-diccionario/abreviaturas-de-las-categorias-gramaticales)

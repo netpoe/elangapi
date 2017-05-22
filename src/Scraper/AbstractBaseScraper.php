@@ -3,6 +3,8 @@
 namespace Elang\Scraper;
 
 use Elang\Application;
+use Wa72\HtmlPageDom\HtmlPageCrawler;
+use Wa72\HtmlPageDom\HtmlPage;
 
 abstract class AbstractBaseScraper extends Application {
 
@@ -24,14 +26,28 @@ abstract class AbstractBaseScraper extends Application {
 
     public $data = [];
 
+    public $lettersPathString = 'a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z';
+
     abstract public function scrape();
 
     public function __construct(String $langCode)
     {
         $this->setLang($langCode);
 
-        $directory = dirname(__DIR__, 3) . "/lib/lang/{$this->lang}/{$this->namespace}";
+        $directory = dirname(__DIR__, 2) . "/lib/lang/{$this->lang}/{$this->namespace}";
         $this->setDirectory($directory);
+    }
+
+    public function reset()
+    {
+        $this->data = [];
+
+        return $this;
+    }
+
+    public function getLetters(): array
+    {
+        return explode('_', $this->lettersPathString);
     }
 
     public function createJsonFile(String $content)
@@ -50,8 +66,26 @@ abstract class AbstractBaseScraper extends Application {
         return $this;
     }
 
+    public function setData($data)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function createDirectory()
+    {
+        mkdir($this->directory);
+
+        return $this;
+    }
+
     public function combineJson()
     {   
+        if (!file_exists($this->directory)) {
+            $this->createDirectory();
+        }
+
         if (!file_exists($this->file)) {
             $this->createJsonFile('[]');
         }
@@ -62,11 +96,9 @@ abstract class AbstractBaseScraper extends Application {
 
         $content = array_merge($tempArray, $this->data);
 
-        $jsonData = json_encode($content);
+        $jsonData = json_encode($content, JSON_PRETTY_PRINT);
 
-        $this->data = $jsonData;
-        
-        return $this;
+        return $this->setData($jsonData);
     }
 
     public function clean()
@@ -77,11 +109,9 @@ abstract class AbstractBaseScraper extends Application {
         
         $newContent = array_unique($content);
 
-        $jsonData = json_encode(array_values($newContent));
+        $jsonData = json_encode(array_values($newContent), JSON_PRETTY_PRINT);
 
-        $this->data = $jsonData;
-
-        return $this;
+        return $this->setData($jsonData);
     }
 
     public function index($index)

@@ -9,10 +9,12 @@ $app = new Elang\Application;
 $lang = 'es_MX';
 $scraperMapKey = 'words';
 $scraper = $app->getScraper($lang, $scraperMapKey);
+// $scraper
+//     ->scrape()
+//     ->removeDuplicates();
 
-$scraper->createWord('John');
-
-// $scraper = new Elang\Scraper\es_MX\VerbsScraper('es_MX');
+$scraperMapKey = 'verbs';
+// $scraper = $app->getScraper($lang, $scraperMapKey);
 // $scraper
 //     ->scrape()
 //     ->removeDuplicates();

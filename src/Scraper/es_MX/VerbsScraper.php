@@ -3,8 +3,6 @@
 namespace Elang\Scraper\es_MX;
 
 use Elang\Scraper\AbstractBaseScraper;
-use Wa72\HtmlPageDom\HtmlPageCrawler;
-use Wa72\HtmlPageDom\HtmlPage;
 
 class VerbsScraper extends AbstractBaseScraper
 {
@@ -60,13 +58,6 @@ class VerbsScraper extends AbstractBaseScraper
                 ->save()
                 ->reset();
         }
-
-        return $this;
-    }
-
-    public function reset()
-    {
-        $this->data = [];
 
         return $this;
     }

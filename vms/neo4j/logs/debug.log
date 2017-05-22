@@ -397,3 +397,22 @@ Storage files: (filename : modification date - size)
 2017-05-21 21:26:55.649+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [4]:  Check pointing completed
 2017-05-21 21:26:55.663+0000 INFO [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Starting log pruning.
 2017-05-21 21:26:55.667+0000 INFO [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Log pruning complete.
+2017-05-21 21:41:55.796+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [6]:  Starting check pointing...
+2017-05-21 21:41:55.809+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [6]:  Starting store flush...
+2017-05-21 21:41:55.818+0000 INFO [o.n.k.i.s.c.CountsTracker] About to rotate counts store at transaction 6 to [/var/lib/neo4j/data/databases/graph.db/neostore.counts.db.b], from [/var/lib/neo4j/data/databases/graph.db/neostore.counts.db.a].
+2017-05-21 21:41:55.850+0000 INFO [o.n.k.i.s.c.CountsTracker] Successfully rotated counts store at transaction 6 to [/var/lib/neo4j/data/databases/graph.db/neostore.counts.db.b], from [/var/lib/neo4j/data/databases/graph.db/neostore.counts.db.a].
+2017-05-21 21:41:55.859+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [6]:  Store flush completed
+2017-05-21 21:41:55.861+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [6]:  Starting appending check point entry into the tx log...
+2017-05-21 21:41:55.866+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [6]:  Appending check point entry into the tx log completed
+2017-05-21 21:41:55.868+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] Check Pointing triggered by scheduler for time threshold [6]:  Check pointing completed
+2017-05-21 21:41:55.870+0000 INFO [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Starting log pruning.
+2017-05-21 21:41:55.872+0000 INFO [o.n.k.i.t.l.p.LogPruningImpl] Log Rotation [0]:  Log pruning complete.
+2017-05-21 21:45:00.076+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 908ms.
+2017-05-21 22:12:07.972+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 327ms.
+2017-05-21 22:18:09.589+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 449ms.
+2017-05-21 22:35:49.595+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 358ms.
+2017-05-21 22:37:49.597+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 242ms.
+2017-05-21 22:45:39.592+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 419ms.
+2017-05-21 22:58:57.977+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 936ms.
+2017-05-21 23:11:04.131+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 974ms.
+2017-05-22 00:01:37.992+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 946ms.
